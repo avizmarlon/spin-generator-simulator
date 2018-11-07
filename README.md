@@ -1,0 +1,1 @@
+I created this to prove to a friend that spinning the wheel in Zynga Poker 25 times with 2 gold coins would statistically give higher earnings compared to spinning it once with 50 gold coins.
