@@ -2,9 +2,9 @@ from random import choices
 from collections import Counter
 
 # simulates wheel spins with a 2 or 50 gold coins
-def simulation(gold_coins_amount, samples_amount):
+def simulation(gold_coins_amount, spins_amount):
 	total_earnings = 0
-	samples = choices(combs_list, chances_list, k=samples_amount)
+	samples = choices(combs_list, chances_list, k=spins_amount)
 	counter_values = Counter(samples)
 
 	if gold_coins_amount == '2 coins':
