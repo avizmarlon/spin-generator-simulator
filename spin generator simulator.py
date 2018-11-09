@@ -143,13 +143,6 @@ combs_list = []
 for n in range(1, 27):
 	combs_list.append('comb' + str(n))
 
-# 39 (3900%) = x40
-multipliers = {'100%': 1, 'vip': 0.05, 'bonus_multiplier': 39}
-
-# e.g.:
-# (earnings value * multiplier) + earning value)
-# (100 * 0.05) + 100
-
 # how many times one amount of coins makes more earning than the other over an
 # amount of samples
 earning_comparison = {'50 coins': 0, '2 coins': 0, 'draws': 0}
