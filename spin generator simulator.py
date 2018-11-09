@@ -33,12 +33,12 @@ def simulation(gold_coins_amount, spins_amount):
 
 def amount_comparison(fifty_coins, two_coins):
 	if fifty_coins > two_coins:
-		return {'bigger_name': 'Fifty coins', 'bigger_wins': fifty_coins, \
-				'smaller_name': 'two coins', 'smaller_wins': two_coins
+		return {'bigger_name': 'Fifty coins', 'bigger_value': fifty_coins, \
+				'smaller_name': 'two coins', 'smaller_value': two_coins
 		}
 	else:
-		return {'bigger_name': 'Two coins', 'bigger_wins': two_coins, \
-				'smaller_name': 'fifty coins', 'smaller_wins': fifty_coins
+		return {'bigger_name': 'Two coins', 'bigger_value': two_coins, \
+				'smaller_name': 'fifty coins', 'smaller_value': fifty_coins
 		}
 
 # comb = combination of symbols in the slot machine
@@ -153,11 +153,15 @@ multipliers = {'100%': 1, 'vip': 0.05, 'bonus_multiplier': 39}
 # how many times one amount of coins makes more earning than the other over an
 # amount of samples
 earning_comparison = {'50 coins': 0, '2 coins': 0, 'draws': 0}
+earning_amount_comparison = {'50 coins': 0, '2 coins': 0}
 
 # total samples (simulations)
-for n in range(10**6):
+simulations_amount = 10**6
+for n in range(simulations_amount):
 		two_coins_earning = simulation('2 coins', 25)
 		fifty_coints_earning = simulation('50 coins', 1)
+		earning_amount_comparison['50 coins'] = fifty_coints_earning
+		earning_amount_comparison['2 coins'] = two_coins_earning
 		if two_coins_earning > fifty_coints_earning:
 			earning_comparison['2 coins'] += 1
 		elif fifty_coints_earning > two_coins_earning:
@@ -166,21 +170,51 @@ for n in range(10**6):
 			earning_comparison['draws'] += 1
 
 fifty_coins_wins = earning_comparison['50 coins']
+fifty_coins_total_earnings = earning_amount_comparison['50 coins']
 two_coins_wins = earning_comparison['2 coins']
+two_coins_total_earnings = earning_amount_comparison['2 coins']
 draws = earning_comparison['draws']
 
 print('\n')
-print("Total simulations: 1 million")
-print('50 coins wins: {wins} ({percentage}%)'.format(
-	wins=str(fifty_coins_wins), percentage=round((fifty_coins_wins/(10**6))*100, 6)))
+print("Total simulations: {simulations_amount}".format(
+	simulations_amount=simulations_amount
+	)
+)
+print("-----------------------------")
+print('50 coins wins: {wins} ({percentage_wins}%)'.format(
+	wins=str(fifty_coins_wins),
+	percentage_wins=round((fifty_coins_wins/(10**6))*100, 6)))
+print('50 coins total earnings: ${earnings} ({percentage_earnings})'.format(
+	earnings=fifty_coins_total_earnings,
+	percentage_earnings=(fifty_coins_total_earnings / (fifty_coins_total_earnings + two_coins_total_earnings)) * 100
+	)
+)
+print('-----------------------------')
 print('2 coins wins: {wins} ({percentage}%)'.format(
-	wins=str(two_coins_wins), percentage=round((two_coins_wins/(10**6))*100, 6)))
+	wins=str(two_coins_wins),
+	percentage=round((two_coins_wins/(10**6))*100, 6)))
+print('2 coins total earnings: ${earnings} ({percentage_earnings})'.format(
+	earnings=two_coins_total_earnings,
+	percentage_earnings=(two_coins_total_earnings / (fifty_coins_total_earnings + two_coins_total_earnings)) * 100
+	)
+)
+print('-----------------------------')
 print('Draws: ' + str(draws))
+print('-----------------------------')
 
 amount = amount_comparison(fifty_coins_wins, two_coins_wins)
 print("{bigger_name} had {percentage}% more wins than {smaller_name}.".format(
 	bigger_name=amount['bigger_name'], 
-	percentage=round(((amount['bigger_wins'] - amount['smaller_wins']) / amount['smaller_wins']) * 100, 6),
+	percentage=round(((amount['bigger_value'] - amount['smaller_value']) / amount['smaller_value']) * 100, 6),
+	smaller_name=amount['smaller_name']
+	)
+)
+print('-----------------------------')
+amount = amount_comparison(fifty_coins_total_earnings, two_coins_total_earnings)
+print("{bigger_name} had ${difference} ({percentage}%) more earnings than {smaller_name}.".format(
+	bigger_name=amount['bigger_name'],
+	difference=amount['bigger_value'] - amount['smaller_value'],
+	percentage=round(((amount['bigger_value'] - amount['smaller_value']) / amount['smaller_value']) * 100, 6),
 	smaller_name=amount['smaller_name']
 	)
 )
