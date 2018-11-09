@@ -153,8 +153,8 @@ simulations_amount = 10**6
 for n in range(simulations_amount):
 		two_coins_earning = simulation('2 coins', 25)
 		fifty_coints_earning = simulation('50 coins', 1)
-		earning_amount_comparison['50 coins'] = fifty_coints_earning
-		earning_amount_comparison['2 coins'] = two_coins_earning
+		earning_amount_comparison['50 coins'] += fifty_coints_earning
+		earning_amount_comparison['2 coins'] += two_coins_earning
 		if two_coins_earning > fifty_coints_earning:
 			earning_comparison['2 coins'] += 1
 		elif fifty_coints_earning > two_coins_earning:
