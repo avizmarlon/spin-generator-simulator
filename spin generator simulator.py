@@ -1,7 +1,7 @@
 from random import choices
 from collections import Counter
 
-# simulates wheel spins with a 2 or 50 gold coins
+# simulates wheel spins with 2 or 50 gold coins
 def simulation(gold_coins_amount, spins_amount):
 	total_earnings = 0
 	samples = choices(combs_list, chances_list, k=spins_amount)
